@@ -1,47 +1,32 @@
 #!/usr/bin/python
 # -*- coding:utf-8 -*-
 __author__ = "Jialiang Zhou"
-__copyright__ = "Copyright 2018, The *** Project"
+__copyright__ = "Copyright 2019, The *** Project"
 __version__ = "1.0.0"
-__email__ = "zhoujialiang@corp.netease.com"
-__phone__ = "15990161157"
+__email__ = "***"
+__phone__ = "***"
 __description__ = ""
 __usage__ = ""
 
-import imaplib
-import email
-import re
-import pymysql
-from sshtunnel import SSHTunnelForwarder
 import os
 import sys
-print(sys.stdout.encoding)
+import re
 import codecs
+import imaplib
+import email
+import pymysql
+from sshtunnel import SSHTunnelForwarder
+from config_private import SSH_HOST, SSH_PORT, SSH_USER, SSH_PASSWORD, SSH_PKEY, LOCAL_HOST
+from config_private import MYSQL_HOST, MYSQL_PORT, MYSQL_USER, MYSQL_PASSWORD, MYSQL_DB
+from config_private import MAIL_ACCOUNT, MAIL_PASSWORD, KEY_WORD_SUBJECT, IMAP_HOST, IMAP_PORT
+
 sys.stdout = codecs.getwriter("utf-8")(sys.stdout.detach())
-
-# Server Config
-LOCAL_HOST = '127.0.0.1'
-SSH_HOST = '52.83.186.223'
-SSH_PORT = 32200
-SSH_PKEY = '/Users/zhoujl/.ssh/id_rsa_netease'
-SSH_USER = 'zhoujialiang'
-SSH_PASSWORD = ''
-
-# MySQL Config
-MYSQL_HOST = '42.186.114.243'
-MYSQL_PORT = 3306
-MYSQL_USER = 'fuxiup'
-MYSQL_PASSWORD = 'fuxiup'
-MYSQL_DB = 'anti_plugin'
 
 # Query to insert row into database nsh_evaluate
 QUERY_SQL_INSERT = """
 INSERT INTO anti_plugin.nsh_ids_scripts(role_id, ts_start, ts_end) 
 VALUES ({role_id}, '{ts_start}', '{ts_end}')
 """
-
-# 查询关键字
-KEY_WORD_SUBJECT = '逆水寒外网疑似作弊统计'
 
 def parse(msg):
     ts = ''
@@ -116,14 +101,11 @@ class MysqlDB(object):
 
 if __name__ == '__main__':
 
-    # 账户密码
-    account = 'zhoujialiang@corp.netease.com'
-    password = '448041981zjlZJL'
 
     #连接邮箱，登录
-    conn = imaplib.IMAP4_SSL('corp.netease.com', 993)
-    conn.login(account, password)
-    print('Successfully connect to mail accout: {}!'.format(account))
+    conn = imaplib.IMAP4_SSL(IMAP_HOST, IMAP_PORT)
+    conn.login(MAIL_ACCOUNT, MAIL_PASSWORD)
+    print('Successfully connect to mail accout: {}!'.format(MAIL_ACCOUNT))
 
     # SSH隧道连接MySQL
     with SSHTunnelForwarder(ssh_address_or_host=(SSH_HOST, SSH_PORT),
