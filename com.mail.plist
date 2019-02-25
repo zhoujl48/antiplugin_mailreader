@@ -9,7 +9,7 @@
   <!-- 指定要运行的脚本 -->
   <key>ProgramArguments</key>
   <array>
-    <string>/Users/zhoujl/workspace/netease/auto/mail.sh</string>
+    <string>/Users/zhoujl/workspace/***/online_mail/mail.sh</string>
   </array>
 
   <!-- 指定要运行的时间 -->
@@ -23,11 +23,11 @@
 
 <!-- 标准输出文件 -->
 <key>StandardOutPath</key>
-<string>/Users/zhoujl/workspace/netease/auto/launchctl.log</string>
+<string>/Users/zhoujl/workspace/***/online_mail/logs/launchctl.log</string>
 
 <!-- 标准错误输出文件，错误日志 -->
 <key>StandardErrorPath</key>
-<string>/Users/zhoujl/workspace/netease/auto/launchctl.err</string>
+<string>/Users/zhoujl/workspace/***/online_mail/logs/launchctl.err</string>
 
 </dict>
 </plist>
